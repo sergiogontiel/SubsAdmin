@@ -1,1 +1,37 @@
-<p>sign-in works!</p>
+<div class="row">
+  <div class="col-md-6 mx-auto mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center">SIGN IN</h1>
+
+        <form [formGroup]="signInForm" (ngSubmit)="onRegister()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" placeholder="Email" class="form-control" formControlName="email"/>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" class="form-control" formControlName="password"/>
+          </div>
+          <button type="submit" class="btn btn-nuevo btn-lg btn-block">
+            Registrar
+          </button>
+        </form>
+
+        <div class="form-group mt-3">
+          <button (click)="onLoginGoogle()" class="btn btn-lg btn-outline-danger">
+            Inicia sesión con Google
+          </button>
+        </div>
+        <div class="form-group mt-3">
+          <button (click)="onLoginFacebook()" class="btn btn-lg btn-outline-primary">
+            Inicia sesión con Facebook
+          </button>
+        </div>
+        <div class="form-group mt-3">
+          <p>¿Tienes ya una cuenta?<a [routerLink]="['/login']"> Login </a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

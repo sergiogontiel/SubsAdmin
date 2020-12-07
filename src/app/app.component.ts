@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { LoginComponent } from './login/login.component';
+
 
 @Component({
   selector: 'subsAdmin',
@@ -7,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'subs-admin';
+
+  constructor(public auth: AngularFireAuth) {}
+
+  logout() {
+    this.auth.signOut();
+  }
 }

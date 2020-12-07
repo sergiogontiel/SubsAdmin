@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
+import firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { UsuariosService } from 'src/app/usuarios.service';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Usuarios } from '../usuarios.model';
+
 
 @Component({
   selector: 'login',
@@ -10,42 +16,67 @@ import { Location } from '@angular/common'
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
-  private emailPattern: any = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  private passwordPattern: any = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
-  constructor(private location:Location) {
+  constructor(public auth: AngularFireAuth, private firestore:AngularFirestore) {
     this.loginForm = this.createFormGroup();
-  }
-
-  ngOnInit(): void {
   }
 
   createFormGroup() {
     return new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(this.emailPattern)]),
-      usuario: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(this.passwordPattern)]),
-      checkbox: new FormControl(false, [Validators.requiredTrue]),
-
+      email: new FormControl(''),
+      password : new FormControl('')
     });
   }
 
-  resetForm(){
-    this.loginForm.reset();
-  }
+    /* Roles */
 
-  sendForm(){
-    if (this.loginForm.valid){
-      console.log('Message sended');
-    } else {
-      console.log('Nop');
+    private updateUserData(user) {
+      const userRef:AngularFirestoreDocument<any> = this.firestore.doc(`usuarios/${user.uid}`);
+      const data: Usuarios = {
+        uid: user.uid,
+        email: user.email,
+        emailVerified: user.email,
+        displayName: user.name,
+        roles: {
+          editor: true,
+        }
+      }
+      return userRef.set(data, {merge:true})
     }
-    this.resetForm();
+
+    /* Roles */
+
+  ngOnInit(): void {
+
+  }
+
+  loginEmail(){
+    const email = this.loginForm.controls['email'].value;
+    const password = this.loginForm.controls['password'].value;
+    this.auth.signInWithEmailAndPassword(email, password).then(function(user){
+      console.log('Credenciales correctas, brother, bienvenido.')
+    }).catch(function (error){
+      console.log(error);
+    });
+  }
+
+  onFacebookLogin(){
+    this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+    .then(credential => this.updateUserData(credential.user))
+  }
+
+  onGoogleLogin(){
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(credential => this.updateUserData(credential.user))
+  }
+
+  onLogin(){
+    console.log('From ->', this.loginForm.value);
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 
 
-get usuario() {return this.loginForm.get('usuario')}
-get email() {return this.loginForm.get('email')}
-get password() {return this.loginForm.get('password')}
-get checkbox() {return this.loginForm.get('checkbox')}
 }

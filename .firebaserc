@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "admin-subs": {
+      "hosting": {
+        "subs-admin": [
+          "admin-subs"
+        ]
+      }
+    }
+  }
+}

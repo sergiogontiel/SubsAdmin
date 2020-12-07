@@ -15,6 +15,11 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import { AnadirSubscripcionComponent } from './anadir-subscripcion/anadir-subscripcion.component';
+import { UserNewComponent } from './user-new/user-new.component';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -25,7 +30,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PagosComponent,
     LoginComponent,
     MainComponent,
-    SignInComponent
+    SignInComponent,
+    AnadirSubscripcionComponent,
+    UserNewComponent
   ],
   imports: [
     BrowserModule,
@@ -34,8 +41,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     RouterModule.forRoot(APP_ROUTES),
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    FontAwesomeModule,
     AngularFireAuthModule,
-    /*AngularFirestoreModule,*/
     BrowserAnimationsModule
   ],
   providers: [],
