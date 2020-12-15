@@ -16,7 +16,7 @@ nav a:hover {color: rgb(189, 252, 252);}
 
 .container{
   /*box-shadow: -5px -5px 70px 0px rgba(0,147,233,0.2), 5px 5px 70px 0px rgba(128,208,199,0.2);*/
-  min-height: 70vh;
+  min-height: 40vh;
   padding: 30px;
   background-color: white;
 }

@@ -7,7 +7,6 @@ export class Usuarios {
   uid: string;
   email: string;
   emailVerified?: boolean;
-  displayName?: string;
   password?: string;
   roles?: Roles;
 }

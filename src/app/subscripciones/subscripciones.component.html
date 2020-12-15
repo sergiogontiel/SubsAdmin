@@ -1,3 +1,63 @@
-<p>subscripciones works!</p>
-<h2 [routerLink]="['/anadirSubs']">Añade una Subscripción nueva!!</h2>
-<h2 [routerLink]="['/userNew']">Añade un Unuario nuevo</h2>
+<h1>Listado de Subscripciones</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Subscripción</th>
+      <th scope="col">Coste</th>
+      <th scope="col">Fecha de vencimiento</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items | async">
+      <td scope="row">{{item.nombreSubs}}</td>
+      <td>{{item.precioSubs}}€</td>
+      <td>{{item.vencimientoSubs}}</td>
+      <td (click)="editar(item)" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil" aria-hidden="true"></i></td>
+      <td (click)="eliminar(item)"><i class="fa fa-trash" aria-hidden="true"></i></td>
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-lg btn-block btn-nuevo mt-5 p-3" [routerLink]="['/anadirSubs']">Añade una nueva Subscripción</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title m-0" id="exampleModalLabel">Editar Subscripción</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="agregarItemEditado()">
+          <h3>Nombre</h3>
+          <input
+            class="form-control" type="text"
+           name="nombreSubs"
+            [(ngModel)]="editarItem.nombreSubs"
+            >
+            <h3>Precio</h3>
+            <input
+            class="form-control" type="number"
+             name="precioSubs"
+            [(ngModel)]="editarItem.precioSubs"
+            >
+            <h3>Vencimiento</h3>
+            <input
+            class="form-control" type="data"
+            name="vencimientoSubs"
+            [(ngModel)]="editarItem.vencimientoSubs"
+            >
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-nuevo btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,13 +4,43 @@
   <div class="col-6 pr-3">
     <h3 class="subtitulo">Mensual</h3>
     <div class="sub-caja">
-
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-uppercase" scope="col">Subscripción</th>
+            <th class="text-uppercase" scope="col">Coste</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items | async">
+            <td>{{item.nombreSubs}}</td>
+            <td>{{item.precioSubs}} €</td>
+          </tr>
+        </tbody>
+            <td><strong>TOTAL</strong></td>
+            <td><strong>La Suma €</strong></td>
+      </table>
     </div>
   </div>
   <div class="col-6 pl-3">
-    <h3 class="subtitulo">Mensual</h3>
+    <h3 class="subtitulo">Anual</h3>
     <div class="sub-caja">
-
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-uppercase" scope="col">Subscripción</th>
+            <th class="text-uppercase" scope="col">Coste</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items | async">
+            <td>{{item.nombreSubs}}</td>
+            <td>{{item.precioSubs*12}} €</td>
+          </tr>
+        </tbody>
+          <td><strong>TOTAL</strong></td>
+          <td><strong>La Suma €</strong></td>
+      </table>
     </div>
   </div>
 </div>

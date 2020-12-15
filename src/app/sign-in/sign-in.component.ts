@@ -52,7 +52,7 @@ export class SignInComponent implements OnInit {
   const { email, password} = this.signInForm.value;
   try {
     const user = await this.authService.register(email, password);
-    this.router.navigate(['subscripciones']);
+    this.router.navigate(['/main']);
   } catch (error) {
     console.log(error);
   }
@@ -72,7 +72,7 @@ export class SignInComponent implements OnInit {
   }
 
   onLoginRedirect(): void {
-    this.router.navigate(['subscripciones']);
+    this.router.navigate(['/main']);
   }
 
 

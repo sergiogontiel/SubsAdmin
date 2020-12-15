@@ -35,16 +35,6 @@ export class AuthService {
     });
   }
 
-/*  async register(email: string, password: string): Promise<Usuarios> {
-    try {
-      const { user } = await this.afsAuth.createUserWithEmailAndPassword(email,password);
-      await this.sendVerificationEmail();
-      return user;
-    } catch (error) {
-      console.log(error);
-    }
-  }*/
-
   async sendVerificationEmail(): Promise<void> {
     return (await this.afsAuth.currentUser).sendEmailVerification();
   }
@@ -83,7 +73,6 @@ export class AuthService {
     const data: Usuarios = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
       roles: {
         editor: true
       }

@@ -1,7 +1,39 @@
-<h1>Controla tus subscripciones con SubsAdmin</h1>
+<div *ngIf="auth.user | async as user; else noRegistrado"></div>
+<ng-template #noRegistrado>
 
-<p class="lead mt-5">
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos cupiditate ipsam nihil commodi, tempore blanditiis illo deleniti labore dolores asperiores sequi tenetur vitae id ducimus magnam voluptatum incidunt, similique natus.
-</p>
+  <h2 class="mb-4">¿Muchas subscripciones? ¿No sabes ni cuanto pagas?</h2>
 
-<button type="button" class="btn btn-lg btn-nuevo btn-block mt-5 p-4 text-uppercase" [routerLink]="['/register']">Crea tu cuenta</button>
+  <img class="img-fluid rounded mx-auto d-block subsimg" alt="Responsive image" src="https://static01.nyt.com/images/2020/01/30/business/30Techfix-illo/29Techfix-illo-articleLarge.gif?quality=75&auto=webp&disable=upscale">
+
+  <h2 class="mt-5">Gestiona tus subscripciones con SubAdmin</h2>
+
+  <p class="lead mt-5">
+    Con esta aplicación podrás tener un gran control sobre tus subcripciones, donde podrás conocer cuales serán tus gastos mensual y anuales por todas ellas, además de poder controlar cuando acaban estas subscripciones y si se renuevan o no automaticamente.
+  </p>
+  <p class="lead">
+    Puedes comenzar creandote un nuevo usuario
+  </p>
+
+  <button type="button" class="btn btn-lg btn-nuevo btn-block mt-5 p-4 text-uppercase" [routerLink]="['/sign-in']">Crea tu cuenta</button>
+</ng-template>
+
+
+<div *ngIf="auth.user | async as user; else">
+  <div *ngIf="user.displayName == null; else showName">
+    <div class="text-align-center">
+      <h1 class="d-inline">¡Hola {{ user.email }} que alegría verte de nuevo!</h1>
+      <p class="lead mt-5">Puedes administrar tus subscripciones justo aquí:</p>
+      <button type="button" class="btn btn-lg btn-nuevo mt-5 mr-5 p-4" [routerLink]="['/subscripciones']">Subscripciones</button>
+      <button type="button" class="btn btn-lg btn-nuevo mt-5 p-4" [routerLink]="['/pagos']">Pagos</button>
+    </div>
+  </div>
+
+  <ng-template #showName>
+    <div class="text-align-center">
+      <h1>¡Hola {{ user.displayName }} que alegría verte de nuevo!</h1>
+      <p class="lead mt-5">Puedes administrar tus subscripciones justo aquí:</p>
+      <button type="button" class="btn btn-lg btn-nuevo mt-5 mr-5 p-3" [routerLink]="['/subscripciones']">Subscripciones</button>
+      <button type="button" class="btn btn-lg btn-nuevo mt-5 p-3" [routerLink]="['/pagos']">Pagos</button>
+    </div>
+  </ng-template>
+</div>

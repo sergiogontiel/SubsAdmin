@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
         uid: user.uid,
         email: user.email,
         emailVerified: user.email,
-        displayName: user.name,
         roles: {
           editor: true,
         }
